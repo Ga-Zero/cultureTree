@@ -1,0 +1,26 @@
+.card {
+  border: 1px solid #00000011;
+  border-radius: 6px;
+  overflow: hidden;
+  width: 200px;
+}
+
+.card img {
+  width: 100%;
+}
+.contents {
+  margin-inline: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.contents :first-of-type {
+  font-weight: bold;
+}
+.genre {
+  display: inline-block;
+  padding: 4px 10px;
+  background-color: #8e43e7;
+  border-radius: 8px;
+  color: #fff;
+  margin-bottom: 6px;
+}

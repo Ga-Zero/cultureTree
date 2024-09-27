@@ -1,0 +1,15 @@
+.listComponent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #00000010;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.listComponent img {
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+}

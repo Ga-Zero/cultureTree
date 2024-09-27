@@ -1,0 +1,10 @@
+.mw {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.h2_p {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}

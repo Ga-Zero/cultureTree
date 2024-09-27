@@ -1,0 +1,30 @@
+.rank nav {
+  width: 100%;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+.rank nav button {
+  width: 100%;
+  outline: 1px solid #dddddd;
+  border: none;
+  background-color: white;
+  padding: 1rem 0;
+  font-weight: 600;
+}
+.rank nav button:hover {
+  background-color: #8e43e7;
+  color: #fff;
+}
+
+.sec1_rank > ul {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.sec2_rank {
+  width: calc(100% - 2rem);
+}

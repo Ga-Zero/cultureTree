@@ -1,0 +1,46 @@
+.date_hall {
+  display: flex;
+  gap: 1rem;
+}
+
+.sec1 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sideL {
+  flex: 1;
+  margin-right: 190px;
+}
+
+.sideL img {
+  width: 360px;
+}
+
+.sideR {
+  flex: 1;
+  display: grid;
+}
+
+.book {
+  grid-column: span 2;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  height: 46px;
+  background-color: #8e43e7;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.book:hover {
+  background-color: #623698;
+}
+
+.sec2 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
