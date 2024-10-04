@@ -2,16 +2,22 @@
   border: 1px solid #00000011;
   border-radius: 6px;
   overflow: hidden;
-  width: 200px;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
 }
 
 .card img {
   width: 100%;
+  max-height: 400px;
+  min-height: 200px;
+  object-fit: cover;
 }
 .contents {
   margin-inline: 10px;
   overflow: hidden;
   text-overflow: ellipsis;
+  flex-grow: 1;
 }
 .contents :first-of-type {
   font-weight: bold;
@@ -23,4 +29,9 @@
   border-radius: 8px;
   color: #fff;
   margin-bottom: 6px;
+}
+
+.card.selected {
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
 }

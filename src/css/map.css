@@ -1,0 +1,11 @@
+.sec2_map ul {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 20px 0;
+}

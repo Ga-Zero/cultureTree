@@ -8,6 +8,16 @@
   margin-bottom: 10px;
 }
 
+.listComponent div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.listComponent div:nth-child(2) {
+  gap: 5rem;
+}
 .listComponent img {
   height: 100px;
   width: 100px;

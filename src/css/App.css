@@ -8,3 +8,12 @@
   justify-content: center;
   margin-bottom: 2rem;
 }
+
+button {
+  cursor: pointer;
+}
+
+ul {
+  padding-left: 0;
+  list-style-type: none;
+}

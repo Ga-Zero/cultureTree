@@ -1,42 +1,82 @@
+import { useEffect, useState } from "react";
 import "../css/Detail.css";
+import { useParams } from "react-router-dom";
+
+interface PerformanceData {
+  genrenm: string;
+  prfnm: string;
+  prfpdfrom: string;
+  prfpdto: string;
+  fcltynm: string;
+  poster: string;
+  prfage: string;
+  prfruntime: string;
+  prfcast: string;
+  pcseguidance: string;
+  dtguidance: string;
+  styurls?: string;
+}
 
 export default function Detail() {
+  const { id } = useParams<{ id: string }>();
+  const [data, setData] = useState<PerformanceData>();
+
+  const fetchData = async () => {
+    try {
+      const url = `https://ruehan-kopis.org/performance/${id}`;
+      const res = await fetch(url);
+      const PerformanceData = await res.json();
+      setData(PerformanceData);
+      console.log(PerformanceData);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="detail mw">
       <div className="title">
-        <h2>툴투즈 로트렉 : 몽마르트의 별</h2>
+        <h2>
+          [{data.genrenm}] {data.prfnm}
+        </h2>
         <div className="date_hall">
-          <p>2024.09.14 ~ 2025.03.03</p>
-          <p>마이아트뮤지엄</p>
+          <p>
+            {data.prfpdfrom} - {data.prfpdto}
+          </p>
+          <p>{data.fcltynm}</p>
         </div>
       </div>
       <section className="sec1">
         <div className="sideL">
-          <img src="/img/test.jpg" alt="" />
+          <img src={data.poster} alt={data.prfnm} />
         </div>
         <div className="sideR">
-          <p className="left">등급</p>
-          <p className="right">8세 이상 관람가</p>
-          <p className="left">관람시간</p>
-          <p className="right">165분</p>
-          <p className="left">출연</p>
-          <p className="right">
-            정성화, 양준모, 민우혁, 서영주, 이정열, 정재은, 김진수 등
-          </p>
-          <p className="left">가격</p>
-          <p className="right">
-            VIP석 160,000원R석 140,000원S석 110,000원A석 80,000원
-          </p>
-          <p className="left">공연시간 안내</p>
-          <p className="right">금요일(19:30)토요일(14:00,18:30)일요일(14:00)</p>
-          <button className="book">예매처 바로가기</button>
+          <p>등급</p>
+          <p>{data.prfage}</p>
+          <p>관람시간</p>
+          <p>{data.prfruntime}</p>
+          <p>출연</p>
+          <p>{data.prfcast}</p>
+          <p>가격</p>
+          <p>{data.pcseguidance}</p>
+          <p>공연시간 안내</p>
+          <p>{data.dtguidance}</p>
+          <button className="book ">예매처 바로가기</button>
         </div>
       </section>
       <section className="sec2">
-        <img
-          src="http://www.kopis.or.kr/upload/pfmIntroImage/PF_PF246648_240809_0928370.jpg"
-          alt=""
-        />
+        {data.styurls &&
+          data.styurls
+            .split(",")
+            .map((url, index) => <img key={index} src={url} alt={url} />)}
       </section>
       <section className="sec3">
         <h2>관람리뷰</h2>

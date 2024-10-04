@@ -4,9 +4,51 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "../css/mainslide.css";
+import "../css/main.css";
 import Card from "../component/Card";
+import { useEffect, useState } from "react";
+import genresData from "../assets/genres.json";
+
+interface Item {
+  mt20id: string;
+  poster: string;
+  prfnm: string;
+  fcltynm: string;
+  prfpdfrom: string;
+  prfpdto: string;
+}
+
 export default function Main() {
+  const [data, setData] = useState<Item[]>([]);
+  const [genre, setGenre] = useState<string>("");
+
+  const fetchData = async () => {
+    try {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, "0");
+      const day = String(today.getDate()).padStart(2, "0");
+      const formattedDate = `${year}${month}${day}`;
+
+      const genreParam = genre ? `&shcate=${genre}` : "";
+
+      const url = `https://ruehan-kopis.org/performances?stdate=${formattedDate}&eddate=${formattedDate}&cpage=1&rows=10&shcate=${genreParam}`;
+      const res = await fetch(url);
+      const data = await res.json();
+      console.log(data);
+      setData(data);
+    } catch (err) {
+      console.error();
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, [genre]);
+
+  const handleGenreClick = (selectedGenre: string) => {
+    setGenre(selectedGenre);
+  };
+
   return (
     <div className="main mw">
       <section className="sec1_main">
@@ -41,9 +83,9 @@ export default function Main() {
       <section className="sec2_main">
         <h2>베스트공연</h2>
         <ul>
-          <Card />
-          <Card />
-          <Card />
+          {data.slice(0, 3).map((item) => (
+            <Card key={item.mt20id} item={item} />
+          ))}
         </ul>
       </section>
       <section className="sec3_main">
@@ -84,24 +126,18 @@ export default function Main() {
       <section className="sec5_main">
         <h2>장르별 추천 공연</h2>
         <nav>
-          <button>뮤지컬</button>
-          <button>뮤지컬</button>
-          <button>뮤지컬</button>
-          <button>뮤지컬</button>
-          <button>뮤지컬</button>
-          <button>뮤지컬</button>
-          <button>뮤지컬</button>
-          <button>뮤지컬</button>
-          <button>뮤지컬</button>
+          {genresData.map((genre) => (
+            <button key={genre.id} onClick={() => handleGenreClick(genre.id)}>
+              {genre.name}
+            </button>
+          ))}
         </nav>
         <ul>
-          {Array(4)
-            .fill(null)
-            .map((_, index) => (
-              <li key={index}>
-                <img src="/img/test.jpg" alt="" />
-              </li>
-            ))}
+          {data.slice(0, 4).map((item, index) => (
+            <li key={index}>
+              <img src={item.poster} alt={item.prfnm} />
+            </li>
+          ))}
         </ul>
       </section>
     </div>

@@ -21,9 +21,9 @@ export default function Rank() {
       </nav>
       <section className="sec1_rank">
         <ul>
+          {/* <Card />
           <Card />
-          <Card />
-          <Card />
+          <Card /> */}
         </ul>
       </section>
       <section className="sec2_rank">

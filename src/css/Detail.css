@@ -5,12 +5,7 @@
 
 .sec1 {
   display: flex;
-  justify-content: space-between;
-}
-
-.sideL {
-  flex: 1;
-  margin-right: 190px;
+  gap: 6rem;
 }
 
 .sideL img {
@@ -41,6 +36,6 @@
 
 .sec2 {
   width: 100%;
-  display: flex;
+  display: grid;
   justify-content: center;
 }
