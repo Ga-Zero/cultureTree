@@ -1,7 +1,7 @@
 import List from "../component/List";
 import genresData from "../assets/genres.json";
 import "../css/rank.css";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Loading from "../component/Loading";
 import RankCard from "../component/RankCard";
 
@@ -22,7 +22,7 @@ export default function Rank() {
   });
   const [loading, setLoading] = useState<boolean>(false);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       setLoading(true);
       const today = new Date();
@@ -41,10 +41,11 @@ export default function Rank() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [genre]);
+
   useEffect(() => {
     fetchData();
-  }, [genre]);
+  }, [fetchData]);
 
   const handleGenreClick = (selectedGenre: { id: string; name: string }) => {
     setGenre(selectedGenre);

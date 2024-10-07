@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Modal from "../component/Modal";
 import Loading from "../component/Loading";
 
@@ -29,7 +29,7 @@ export default function Recommend() {
     }
   }, []);
 
-  const fetchData = async (genre: string) => {
+  const fetchData = useCallback(async (genre: string) => {
     try {
       setLoading(true);
       const today = new Date();
@@ -47,9 +47,9 @@ export default function Recommend() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const fetchAllGenresData = async () => {
+  const fetchAllGenresData = useCallback(async () => {
     const fetchedData = await Promise.all(
       genres.map(async (genre) => {
         const data = await fetchData(genre);
@@ -63,13 +63,13 @@ export default function Recommend() {
     });
 
     setData(genreDataMap);
-  };
+  }, [genres, fetchData]);
 
   useEffect(() => {
     if (genres.length > 0) {
       fetchAllGenresData();
     }
-  }, [genres]);
+  }, [genres, fetchAllGenresData]);
 
   return (
     <div className="Recommend mw">

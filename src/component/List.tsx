@@ -16,7 +16,7 @@ export default function List({ item }: { item: Item }) {
     navigate(`/detail/${item.mt20id}`);
   };
   return (
-    <li className="listComponent">
+    <li className="listComponent" onClick={goDetail}>
       <div>
         <img src={`http://www.kopis.or.kr${item.poster}`} alt="" />
       </div>

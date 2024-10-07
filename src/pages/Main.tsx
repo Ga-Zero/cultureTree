@@ -6,7 +6,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "../css/main.css";
 import Card from "../component/Card";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import genresData from "../assets/genres.json";
 import Loading from "../component/Loading";
 
@@ -26,7 +26,7 @@ export default function Main() {
   const [loading, setLoading] = useState<boolean>(false);
   const [upcomingData, setUpcomingData] = useState<Item[]>([]);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       setLoading(true);
       const today = new Date();
@@ -39,18 +39,18 @@ export default function Main() {
 
       const url = `https://ruehan-kopis.org/performances?stdate=${formattedDate}&eddate=${formattedDate}&cpage=1&rows=10&shcate=${genreParam}`;
       const res = await fetch(url);
-
       const data = await res.json();
       setData(data);
     } catch (err) {
-      console.error();
+      console.error(err);
     } finally {
       setLoading(false);
     }
-  };
+  }, [genre]);
+
   useEffect(() => {
     fetchData();
-  }, [genre]);
+  }, [fetchData]);
 
   const fetchUpcomingData = async () => {
     try {

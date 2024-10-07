@@ -6,7 +6,6 @@ import Recommend from "./pages/Recommend";
 import Search from "./pages/Search";
 import Detail from "./pages/Detail";
 import Header from "./component/Header";
-import Footer from "./component/Footer";
 import Hall from "./pages/Hall";
 
 function App() {

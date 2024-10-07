@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "../css/Detail.css";
 import { useParams } from "react-router-dom";
 import Loading from "../component/Loading";
@@ -23,23 +23,23 @@ export default function Detail() {
   const [data, setData] = useState<PerformanceData>();
   const [loading, setLoading] = useState<boolean>(false);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       setLoading(true);
       const url = `https://ruehan-kopis.org/performance/${id}`;
       const res = await fetch(url);
-      const PerformanceData = await res.json();
-      setData(PerformanceData);
+      const performanceData = await res.json();
+      setData(performanceData);
     } catch (err) {
       console.error(err);
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   if (!data) {
     return <div>Loading...</div>;

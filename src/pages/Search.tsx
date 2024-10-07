@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import areaData from "../assets/area.json";
 import genresData from "../assets/genres.json";
@@ -32,7 +32,7 @@ export default function Search() {
   const [activeGenre, setActiveGenre] = useState<string>("");
   const [activeArea, setActiveArea] = useState<string>("");
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       setLoading(true);
       const formatDate = (date: Date) =>
@@ -43,23 +43,22 @@ export default function Search() {
 
       const formattedDate = selectedDate
         ? Array.isArray(selectedDate)
-          ? selectedDate.map((date) => (date ? formatDate(date) : ""))
+          ? selectedDate.map((date) => (date ? formatDate(date) : "")).join(",")
           : formatDate(selectedDate)
         : "";
 
       const areaParam = area ? `&signgucode=${area}` : "";
-
       const url = `https://ruehan-kopis.org/performances?stdate=${formattedDate}&eddate=${formattedDate}&cpage=1&rows=10&signgucode=${areaParam}&shprfnm=${query}&shcate=${genre}`;
 
       const res = await fetch(url);
       const data = await res.json();
       setData(data);
     } catch (err) {
-      console.error();
+      console.error(err);
     } finally {
       setLoading(false);
     }
-  };
+  }, [query, genre, area, selectedDate]);
 
   const handleSearch = () => {
     fetchData();
@@ -69,7 +68,6 @@ export default function Search() {
     setGenre("");
     setArea("");
     setSelectedDate(new Date());
-
     setData([]);
   };
 
@@ -85,7 +83,7 @@ export default function Search() {
 
   useEffect(() => {
     fetchData();
-  }, [genre, area, query, selectedDate]);
+  }, [fetchData]);
 
   return (
     <div className="search mw">
