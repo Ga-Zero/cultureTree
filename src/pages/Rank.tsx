@@ -16,7 +16,10 @@ interface Item {
 
 export default function Rank() {
   const [data, setData] = useState<Item[]>([]);
-  const [genre, setGenre] = useState<string>("");
+  const [genre, setGenre] = useState<{ id: string; name: string }>({
+    id: "",
+    name: "",
+  });
   const [loading, setLoading] = useState<boolean>(false);
 
   const fetchData = async () => {
@@ -28,13 +31,10 @@ export default function Rank() {
       const day = String(today.getDate()).padStart(2, "0");
       const formattedDate = `${year}${month}${day}`;
 
-      const url = `https://ruehan-kopis.org/boxoffice?ststype=month&date=${formattedDate}&catecode=${genre}`;
-      console.log(genre);
+      const url = `https://ruehan-kopis.org/boxoffice?ststype=month&date=${formattedDate}&catecode=${genre.id}`;
 
       const res = await fetch(url);
       const data = await res.json();
-      console.log(url);
-      console.log(data);
       setData(data);
     } catch (err) {
       console.error();
@@ -46,7 +46,7 @@ export default function Rank() {
     fetchData();
   }, [genre]);
 
-  const handleGenreClick = (selectedGenre: string) => {
+  const handleGenreClick = (selectedGenre: { id: string; name: string }) => {
     setGenre(selectedGenre);
   };
 
@@ -57,21 +57,33 @@ export default function Rank() {
       ) : (
         <>
           <h2>예매순위</h2>
-          <p className="h2_p">‘전체’ 예매 순위를 확인해보세요</p>
+          <p className="h2_p">{genre.name} 예매 순위를 확인해보세요</p>
           <div>
-            {genresData.map((genre) => (
-              <button key={genre.id} onClick={() => handleGenreClick(genre.id)}>
-                {genre.name}
+            {genresData.map((genreItem) => (
+              <button
+                key={genreItem.id}
+                onClick={() =>
+                  handleGenreClick({ id: genreItem.id, name: genreItem.name })
+                }
+                className={genre.id === genreItem.id ? "on" : ""}
+              >
+                {genreItem.name}
               </button>
             ))}
           </div>
+
           <section className="sec1_rank">
-            <ul>
-              {data.slice(0, 3).map((item) => (
-                <RankCard key={item.mt20id} item={item} />
-              ))}
-            </ul>
+            {data.length === 0 ? (
+              <p className="blank">다른 랭킹을 확인해주세요</p>
+            ) : (
+              <ul>
+                {data.slice(0, 3).map((item) => (
+                  <RankCard key={item.mt20id} item={item} />
+                ))}
+              </ul>
+            )}
           </section>
+
           <section className="sec2_rank">
             <ul>
               {data.slice(3, 10).map((item) => (

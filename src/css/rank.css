@@ -1,9 +1,14 @@
+.rank div button.on {
+  background-color: #8e43e7;
+  color: #fff;
+}
 .rank > div {
   width: 100%;
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;
 }
+
 .rank div button {
   width: 100%;
   outline: 1px solid #dddddd;
@@ -12,9 +17,9 @@
   padding: 1rem 0;
   font-weight: 600;
 }
-.rank nav button:hover {
-  background-color: #8e43e7;
-  color: #fff;
+.rank div button:hover {
+  background-color: #8d43e733;
+  transition: 0.3s;
 }
 
 .sec1_rank > ul {

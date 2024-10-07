@@ -1,11 +1,11 @@
 [
-  { "id": " ", "name": "전체" },
-  { "id": "AAAA", "name": "연극" },
-  { "id": "GGGA", "name": "뮤지컬" },
-  { "id": "CCCA", "name": "클래식" },
-  { "id": "CCCC", "name": "국악" },
-  { "id": "CCCD", "name": "대중음악" },
-  { "id": "BBBC", "name": "무용" },
-  { "id": "EEEB", "name": "서커스/마술" },
-  { "id": "EEEA", "name": "복합" }
+  { "id": " ", "name": "전체", "nameId": " " },
+  { "id": "AAAA", "name": "연극", "nameId": "연극" },
+  { "id": "GGGA", "name": "뮤지컬", "nameId": "뮤지컬" },
+  { "id": "CCCA", "name": "클래식", "nameId": "서양음악(클래식)" },
+  { "id": "CCCC", "name": "국악", "nameId": "한국음악(국악)" },
+  { "id": "CCCD", "name": "대중음악", "nameId": "대중음악" },
+  { "id": "BBBC", "name": "무용", "nameId": "무용" },
+  { "id": "EEEB", "name": "서커스/마술", "nameId": "서커스/마술" },
+  { "id": "EEEA", "name": "복합", "nameId": "복합" }
 ]

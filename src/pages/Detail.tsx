@@ -30,7 +30,6 @@ export default function Detail() {
       const res = await fetch(url);
       const PerformanceData = await res.json();
       setData(PerformanceData);
-      console.log(PerformanceData);
     } catch (err) {
       console.error(err);
     } finally {

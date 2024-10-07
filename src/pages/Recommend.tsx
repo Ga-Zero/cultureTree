@@ -41,7 +41,6 @@ export default function Recommend() {
       const url = `https://ruehan-kopis.org/performances?stdate=${formattedDate}&eddate=${formattedDate}&cpage=1&rows=10&shcate=${genre}`;
       const res = await fetch(url);
       const data = await res.json();
-      console.log(data);
       return data;
     } catch (err) {
       console.error();

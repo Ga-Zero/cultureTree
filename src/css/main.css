@@ -41,6 +41,7 @@ h2 {
   height: 300px;
   object-fit: cover;
   border-radius: 30px;
+  transition: transform 0.2s;
 }
 .sec5_main div {
   display: flex;
@@ -67,8 +68,12 @@ h2 {
 .sec5_main > ul > li > img {
   width: 200px;
   border-radius: 30px;
+  transition: transform 0.2s;
 }
-
+.sec3_main > ul > li > img:hover,
+.sec5_main > ul > li > img:hover {
+  transform: scale(1.05);
+}
 .sec1_main,
 .sec4_main {
   width: 100vw;

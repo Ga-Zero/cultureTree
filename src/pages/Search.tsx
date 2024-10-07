@@ -47,15 +47,12 @@ export default function Search() {
           : formatDate(selectedDate)
         : "";
 
-      const genreParam = genre ? `&shcate=${genre}` : "";
       const areaParam = area ? `&signgucode=${area}` : "";
 
-      const url = `https://ruehan-kopis.org/performances?stdate=${formattedDate}&eddate=${formattedDate}&cpage=1&rows=10&shcate=${genreParam}&signgucode=${areaParam}&shprfnm=${query}`;
-      console.log(url);
+      const url = `https://ruehan-kopis.org/performances?stdate=${formattedDate}&eddate=${formattedDate}&cpage=1&rows=10&signgucode=${areaParam}&shprfnm=${query}&shcate=${genre}`;
 
       const res = await fetch(url);
       const data = await res.json();
-      console.log(data);
       setData(data);
     } catch (err) {
       console.error();
@@ -72,7 +69,6 @@ export default function Search() {
     setGenre("");
     setArea("");
     setSelectedDate(new Date());
-    console.log(setSelectedDate);
 
     setData([]);
   };
@@ -108,10 +104,11 @@ export default function Search() {
                   {genresData.map((genreItem, index) => (
                     <button
                       key={index}
-                      onClick={() => handleGenreClick(genreItem.id)}
-                      className={activeGenre === genreItem.id ? "on" : ""}
+                      onClick={() => handleGenreClick(genreItem.nameId)}
+                      className={activeGenre === genreItem.name ? "on" : ""}
                     >
                       {genreItem.name}
+                      {activeGenre}
                     </button>
                   ))}
                 </div>

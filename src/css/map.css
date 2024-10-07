@@ -1,3 +1,9 @@
+.blank {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .sec2_map ul {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

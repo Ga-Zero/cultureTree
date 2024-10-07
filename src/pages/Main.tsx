@@ -41,7 +41,6 @@ export default function Main() {
       const res = await fetch(url);
 
       const data = await res.json();
-      console.log(data);
       setData(data);
     } catch (err) {
       console.error();
@@ -58,7 +57,6 @@ export default function Main() {
       setLoading(true);
       const res = await fetch("https://ruehan-kopis.org/upcoming-performances");
       const data = await res.json();
-      console.log(data);
       setUpcomingData(data);
     } catch (err) {
       console.error();
@@ -157,9 +155,9 @@ export default function Main() {
             <div>
               {genresData.map((genre) => (
                 <button
-                  key={genre.id}
-                  onClick={() => handleGenreClick(genre.id)}
-                  className={selectedGenre === genre.id ? "on" : ""}
+                  key={genre.nameId}
+                  onClick={() => handleGenreClick(genre.nameId)}
+                  className={selectedGenre === genre.nameId ? "on" : ""}
                 >
                   {genre.name}
                 </button>

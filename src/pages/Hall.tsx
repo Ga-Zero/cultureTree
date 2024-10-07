@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../css/map.css";
 import Place from "../component/Place";
 import Card from "../component/Card";
+import Loading from "../component/Loading";
 
 declare global {
   interface Window {
@@ -26,8 +27,10 @@ export default function Hall() {
   const [fclt, setFclt] = useState<[]>([]);
   const [markedIds, setMarkedIds] = useState<Mark[]>([]);
   const [performances, setPerformances] = useState<Performance[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const fetchData = async () => {
+    setLoading(true);
     try {
       const url = `https://ruehan-kopis.org/performance-facilities?&cpage=1&rows=3200`;
       const res = await fetch(url);
@@ -35,6 +38,8 @@ export default function Hall() {
       setFclt(data);
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -43,6 +48,10 @@ export default function Hall() {
   }, []);
 
   useEffect(() => {
+    if (fclt.length === 0) return;
+
+    setLoading(true);
+
     const initMap = (latitude: number, longitude: number) => {
       const mapContainer = document.getElementById("map");
       const mapOption = {
@@ -68,7 +77,12 @@ export default function Hall() {
           infowindow.open(map, marker);
         });
 
-        markedIds.push({ fcltynm, adres });
+        setMarkedIds((prevMarkedIds) => {
+          if (!prevMarkedIds.some((item) => item.fcltynm === fcltynm)) {
+            return [...prevMarkedIds, { fcltynm, adres }];
+          }
+          return prevMarkedIds;
+        });
       };
 
       const fetchPerformances = async () => {
@@ -88,6 +102,7 @@ export default function Hall() {
         const results = await Promise.all(performancePromises);
         const flattenedPerformances = results.flat();
         setPerformances(flattenedPerformances);
+        setLoading(false);
       };
 
       fetchPerformances();
@@ -99,7 +114,7 @@ export default function Hall() {
           Math.sqrt(Math.pow(latitude - la, 2) + Math.pow(longitude - lo, 2)) *
           111139;
 
-        if (distance <= 10000) {
+        if (distance <= 5000) {
           displayMarker(location);
         }
       });
@@ -112,6 +127,7 @@ export default function Hall() {
       },
       (error) => {
         console.error(error);
+        setLoading(false);
       }
     );
   }, [fclt, markedIds]);
@@ -121,21 +137,35 @@ export default function Hall() {
       <h2>주변 공연장 안내</h2>
       <div id="map" style={{ width: "100%", height: "400px" }}></div>
 
-      <section className="sec1_map">
-        <ul>
-          {markedIds.map((item, index) => (
-            <Place key={index} item={item} />
-          ))}
-        </ul>
-      </section>
-      <section className="sec2_map">
-        <h2>관련 공연</h2>
-        <ul>
-          {performances.map((item) => (
-            <Card key={item.mt20id} item={item} />
-          ))}
-        </ul>
-      </section>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <section className="sec1_map">
+            {markedIds.length === 0 ? (
+              <p className="blank">검색결과가 없습니다</p>
+            ) : (
+              <ul>
+                {markedIds.map((item, index) => (
+                  <Place key={index} item={item} />
+                ))}
+              </ul>
+            )}
+          </section>
+          <section className="sec2_map">
+            <h2>관련 공연</h2>
+            {performances.length === 0 ? (
+              <p className="blank">검색결과가 없습니다</p>
+            ) : (
+              <ul>
+                {performances.map((item) => (
+                  <Card key={item.mt20id} item={item} />
+                ))}
+              </ul>
+            )}
+          </section>
+        </>
+      )}
     </div>
   );
 }

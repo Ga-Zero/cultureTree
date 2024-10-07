@@ -24,7 +24,6 @@ function App() {
           <Route path="/detail/:id" element={<Detail />}></Route>
           <Route path="/hall" element={<Hall />}></Route>
         </Routes>
-        <Footer />
       </BrowserRouter>
     </div>
   );
