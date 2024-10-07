@@ -13,7 +13,7 @@ interface PickCardProps {
 
 export default function PickCard({ item, selected, onClick }: PickCardProps) {
   return (
-    <li className={`card ${selected ? "selected" : ""}`} onClick={onClick}>
+    <li className={`pick ${selected ? "selected" : ""}`} onClick={onClick}>
       <img src={item.poster} alt="" />
       <div className="contents">
         <p>{item.prfnm}</p>

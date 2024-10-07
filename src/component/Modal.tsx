@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import PickCard from "../component/PickCard";
 import "../css/modal.css";
+import Loading from "../component/Loading";
 
 interface Item {
   mt20id: string;
@@ -13,9 +14,11 @@ export default function Modal() {
   const [data, setData] = useState<Item[]>([]);
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [opacity, setOpacity] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const fetchData = async () => {
     try {
+      setLoading(true);
       const url = `https://ruehan-kopis.org/popular-by-genre`;
       const res = await fetch(url);
       const data = await res.json();
@@ -23,6 +26,8 @@ export default function Modal() {
       setData(data);
     } catch (err) {
       console.error("Failed to fetch data", err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -50,25 +55,36 @@ export default function Modal() {
   }, []);
 
   return (
-    <>
-      <div className="Modal_pick" style={{ opacity }}>
-        <div className="pickBtn">
-          <button onClick={() => window.history.back()}>🔙</button>
-          <button onClick={handleSave}>🔜</button>
-        </div>
-        <h2>공연 pick 🍀</h2>
-        <p className="h2_p">선호하는 공연 3개를 Pick 해주세요 👀</p>
-        <ul>
-          {data.map((item) => (
-            <PickCard
-              key={item.mt20id}
-              item={item}
-              onClick={() => handleCardSelect(item.genrenm)}
-              selected={selectedGenres.includes(item.genrenm)}
-            />
-          ))}
-        </ul>
-      </div>
-    </>
+    <div className="Modal_pick" style={{ opacity }}>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <div className="pickBtn">
+            <button onClick={() => window.history.back()}>🔙</button>
+            <button
+              onClick={() => {
+                handleSave();
+                window.location.reload();
+              }}
+            >
+              🔜
+            </button>
+          </div>
+          <h2>공연 pick 🍀</h2>
+          <p className="h2_p">선호하는 공연 3개를 Pick 해주세요 👀</p>
+          <ul>
+            {data.map((item) => (
+              <PickCard
+                key={item.mt20id}
+                item={item}
+                onClick={() => handleCardSelect(item.genrenm)}
+                selected={selectedGenres.includes(item.genrenm)}
+              />
+            ))}
+          </ul>
+        </>
+      )}
+    </div>
   );
 }

@@ -1,6 +1,7 @@
 .mw {
   max-width: 1400px;
   margin: 0 auto;
+  padding: 0 2rem;
 }
 
 .h2_p {
@@ -16,4 +17,14 @@ button {
 ul {
   padding-left: 0;
   list-style-type: none;
+}
+p {
+  margin: 0.5rem;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  box-sizing: border-box;
+  text-decoration: none;
 }

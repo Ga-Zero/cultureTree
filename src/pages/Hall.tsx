@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import "../css/map.css";
 import Place from "../component/Place";
 import Card from "../component/Card";
@@ -113,32 +112,30 @@ export default function Hall() {
       },
       (error) => {
         console.error(error);
-        initMap(33.450701, 126.570667);
       }
     );
   }, [fclt, markedIds]);
 
   return (
     <div className="Map mw">
-      <>
-        <h2>주변 공연장 안내</h2>
-        <div id="map" style={{ width: "100%", height: "400px" }}></div>
-        <section className="sec1_map">
-          <ul>
-            {markedIds.map((item, index) => (
-              <Place key={index} item={item} />
-            ))}
-          </ul>
-        </section>
-        <section className="sec2_map">
-          <h2>관련 공연</h2>
-          <ul>
-            {performances.map((item) => (
-              <Card key={item.mt20id} item={item} />
-            ))}
-          </ul>
-        </section>
-      </>
+      <h2>주변 공연장 안내</h2>
+      <div id="map" style={{ width: "100%", height: "400px" }}></div>
+
+      <section className="sec1_map">
+        <ul>
+          {markedIds.map((item, index) => (
+            <Place key={index} item={item} />
+          ))}
+        </ul>
+      </section>
+      <section className="sec2_map">
+        <h2>관련 공연</h2>
+        <ul>
+          {performances.map((item) => (
+            <Card key={item.mt20id} item={item} />
+          ))}
+        </ul>
+      </section>
     </div>
   );
 }

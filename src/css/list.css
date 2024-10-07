@@ -1,23 +1,18 @@
 .listComponent {
+  width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   padding: 10px;
   border: 1px solid #00000010;
   border-radius: 6px;
   margin-bottom: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .listComponent div {
-  display: flex;
+  display: grid;
   align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
 }
 
-.listComponent div:nth-child(2) {
-  gap: 5rem;
-}
 .listComponent img {
   height: 100px;
   width: 100px;

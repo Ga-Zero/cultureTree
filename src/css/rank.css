@@ -1,11 +1,10 @@
-.rank nav {
+.rank > div {
   width: 100%;
-  padding: 0 2rem;
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;
 }
-.rank nav button {
+.rank div button {
   width: 100%;
   outline: 1px solid #dddddd;
   border: none;
@@ -26,5 +25,5 @@
 }
 
 .sec2_rank {
-  width: calc(100% - 2rem);
+  width: 100%;
 }

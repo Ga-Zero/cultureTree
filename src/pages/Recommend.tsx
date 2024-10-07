@@ -6,6 +6,7 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { useEffect, useState } from "react";
 import Modal from "../component/Modal";
+import Loading from "../component/Loading";
 
 interface Item {
   mt20id: string;
@@ -19,6 +20,7 @@ interface Item {
 export default function Recommend() {
   const [data, setData] = useState<{ [key: string]: Item[] }>({});
   const [genres, setGenres] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const storedGenres = localStorage.getItem("selectedGenres");
@@ -29,6 +31,7 @@ export default function Recommend() {
 
   const fetchData = async (genre: string) => {
     try {
+      setLoading(true);
       const today = new Date();
       const year = today.getFullYear();
       const month = String(today.getMonth() + 1).padStart(2, "0");
@@ -42,6 +45,8 @@ export default function Recommend() {
       return data;
     } catch (err) {
       console.error();
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -69,27 +74,33 @@ export default function Recommend() {
 
   return (
     <div className="Recommend mw">
-      {genres.length === 0 && <Modal />}
-      <h2>추천 공연 리스트</h2>
-      <p className="h2_p">맞춤형 공연 목록을 확인해보세요</p>
-      {genres.map((genre) => (
-        <section className="sec_rec" key={genre}>
-          <h3>[{genre}] 과 유사한 공연</h3>
-          <Swiper
-            slidesPerView={5}
-            spaceBetween={15}
-            navigation={true}
-            modules={[Navigation]}
-            className="mySwiper"
-          >
-            {data[genre]?.map((item) => (
-              <SwiperSlide key={item.mt20id}>
-                <Card item={item} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </section>
-      ))}
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          {genres.length === 0 && <Modal />}
+          <h2>추천 공연 리스트</h2>
+          <p className="h2_p">맞춤형 공연 목록을 확인해보세요</p>
+          {genres.map((genre) => (
+            <section className="sec_rec" key={genre}>
+              <h3>[{genre}] 과 유사한 공연</h3>
+              <Swiper
+                slidesPerView={5}
+                spaceBetween={15}
+                navigation={true}
+                modules={[Navigation]}
+                className="mySwiper"
+              >
+                {data[genre]?.map((item) => (
+                  <SwiperSlide key={item.mt20id}>
+                    <Card item={item} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </section>
+          ))}
+        </>
+      )}
     </div>
   );
 }
