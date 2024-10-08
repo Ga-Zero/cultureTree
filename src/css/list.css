@@ -21,3 +21,6 @@
   width: 100px;
   object-fit: cover;
 }
+.list_title {
+  font-weight: bold;
+}

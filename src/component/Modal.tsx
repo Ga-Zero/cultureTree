@@ -65,7 +65,6 @@ export default function Modal() {
             <button
               onClick={() => {
                 handleSave();
-                window.location.reload();
               }}
             >
               🔜

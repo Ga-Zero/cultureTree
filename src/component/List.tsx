@@ -21,7 +21,7 @@ export default function List({ item }: { item: Item }) {
         <img src={`http://www.kopis.or.kr${item.poster}`} alt="" />
       </div>
       <div>
-        <p>{item.prfnm}</p>
+        <p className="list_title">{item.prfnm}</p>
         <p>
           {item.prfpdfrom} - {item.prfpdto}
         </p>

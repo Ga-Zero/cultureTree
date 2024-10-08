@@ -103,10 +103,9 @@ export default function Search() {
                     <button
                       key={index}
                       onClick={() => handleGenreClick(genreItem.nameId)}
-                      className={activeGenre === genreItem.name ? "on" : ""}
+                      className={activeGenre === genreItem.nameId ? "on" : ""}
                     >
                       {genreItem.name}
-                      {activeGenre}
                     </button>
                   ))}
                 </div>

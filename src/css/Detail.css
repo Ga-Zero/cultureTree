@@ -1,24 +1,32 @@
-.date_hall {
+.detail .sec1 {
+  width: 1000px;
+  margin: 0 auto;
   display: flex;
-  gap: 1rem;
+  justify-content: center;
+  gap: 6rem;
+  border-bottom: 1px solid #ccc;
+  padding: 4rem 0;
 }
 
-.sec1 {
+.sideL {
   display: flex;
-  gap: 6rem;
 }
 
 .sideL img {
   width: 360px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
 }
 
 .sideR {
-  flex: 1;
   display: grid;
+  padding: 0.5rem;
+  color: #303030;
 }
 
 .book {
   grid-column: 2;
+  width: 20rem;
   border-radius: 10px;
   font-size: 16px;
   font-weight: bold;
@@ -28,15 +36,33 @@
   color: white;
   border: none;
   cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .book:hover {
   background-color: #623698;
+  transition: 0.3s;
 }
-
 .sec2 {
-  width: 80%;
-  display: grid;
+  margin-top: 5rem;
+  display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+  padding: 0.7rem;
+}
+
+.sec2 img {
+  max-width: 750px;
+  width: 100%;
+  object-fit: cover;
+}
+.times {
+  display: flex;
+  flex-direction: column;
+}
+.SL {
+  font-weight: bold;
+  font-size: 16px;
+  color: black;
 }

@@ -43,6 +43,9 @@ export default function Calendars({ onChange }: CalendarsProps) {
           background-color: #007bff; 
           color: white;
         }
+        .react-calendar {
+          border: none; 
+        }
       `}</style>
     </div>
   );

@@ -69,6 +69,7 @@ h2 {
   width: 200px;
   border-radius: 30px;
   transition: transform 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 .sec3_main > ul > li > img:hover,
 .sec5_main > ul > li > img:hover {

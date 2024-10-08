@@ -31,7 +31,7 @@
   font-weight: bold;
   margin-bottom: 10px;
 }
-.div_button button .on {
+.div_button button.on {
   background-color: #8e43e7;
   color: #fff;
 }

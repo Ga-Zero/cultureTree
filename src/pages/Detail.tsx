@@ -55,28 +55,30 @@ export default function Detail() {
             <h2>
               [{data.genrenm}] {data.prfnm}
             </h2>
-            <div className="date_hall">
-              <p>
-                {data.prfpdfrom} - {data.prfpdto}
-              </p>
-              <p>{data.fcltynm}</p>
-            </div>
           </div>
           <section className="sec1">
             <div className="sideL">
               <img src={data.poster} alt={data.prfnm} />
             </div>
             <div className="sideR">
-              <p>등급</p>
-              <p>{data.prfage}</p>
-              <p>관람시간</p>
+              <p className="SL">장소</p>
+              <p>{data.fcltynm}</p>
+              <p className="SL">공연기간</p>
+              <p>
+                {data.prfpdfrom} - {data.prfpdto}
+              </p>
+              <p className="SL">관람시간</p>
               <p>{data.prfruntime}</p>
-              <p>출연</p>
+              <p className="SL">출연</p>
               <p>{data.prfcast}</p>
-              <p>가격</p>
+              <p className="SL">가격</p>
               <p>{data.pcseguidance}</p>
-              <p>공연시간 안내</p>
-              <p>{data.dtguidance}</p>
+              <p className="SL">공연시간 안내</p>
+              <div className="times">
+                {data.dtguidance.split("),").map((time, index) => (
+                  <p key={index}>{time.trim() + ")"}</p>
+                ))}
+              </div>
               <button className="book ">예매처 바로가기</button>
             </div>
           </section>
